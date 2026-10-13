@@ -12,4 +12,6 @@ py sample_seed.py
 py -m uvicorn app.main:app --port 8000
 ```
 
+To use MongoDB Atlas instead, install `pymongo[srv]` and set `MONGO_URI` to your `mongodb+srv://...` connection string. For a local MongoDB: `docker run -d --name mongo -p 27017:27017 mongo:7`.
+
 The app also reads `MONGO_URI` and `MONGO_DB` from the process environment or a local `.env` file. No credentials or `.env` file belong in the submission.
