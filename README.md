@@ -19,6 +19,26 @@ A quick local MongoDB: `docker run -d --name mongo -p 27017:27017 mongo:7`. For 
 
 `MONGO_URI` and `MONGO_DB` come from the environment (a local `.env` also works, but real environment variables win). Nothing is hard-coded.
 
+## Working proof
+
+The app running locally on port 8000 against MongoDB Atlas with the sample data loaded.
+
+API docs (`/docs`):
+
+![Swagger docs](docs/screenshots/swagger-docs.png)
+
+`GET /health`:
+
+![Health](docs/screenshots/health.png)
+
+`GET /employees`:
+
+![Employees](docs/screenshots/employees.png)
+
+`GET /attendance`:
+
+![Attendance](docs/screenshots/attendance.png)
+
 ## Notes
 
 - Everything in the contract is implemented; nothing is missing.
