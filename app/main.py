@@ -1,4 +1,5 @@
 """Employee Attendance & Analytics API."""
+import json
 import os
 import re
 from calendar import monthrange
@@ -1119,5 +1120,5 @@ def explain_endpoint(
     return {
         "endpoint": endpoint,
         "collection": collection,
-        "explain": json_util.loads(json_util.dumps(explanation)),
+        "explain": json.loads(json_util.dumps(explanation)),
     }
