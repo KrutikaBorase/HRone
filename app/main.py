@@ -960,7 +960,7 @@ def employee_monthly(emp_code: str, month: Month):
     stats = result[0] if result else {}
     present_days = rounded(stats.get("present_days", 0), 2)
     attendance_pct = (
-        rounded(present_days / working_days * 100, 4) if working_days else None
+        rounded(present_days / working_days * 100, 2) if working_days else None
     )
     return {
         "emp_code": emp_code,
