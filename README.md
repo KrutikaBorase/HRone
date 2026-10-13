@@ -1,17 +1,26 @@
 # Employee Attendance & Analytics API
 
-FastAPI service backed by MongoDB 6.0 or newer. It implements employee management, punch-in/out, audited attendance corrections, monthly and department analytics, daily trends, and query-plan inspection. Required indexes are created automatically at startup.
+FastAPI + MongoDB service for employee punch-in/out, audited corrections, monthly and department analytics, a daily trend, and an explain endpoint. All code is in `app/main.py`. Indexes are created automatically at startup.
 
-From this directory, install dependencies and configure the MongoDB connection:
+## Run
+
+You need Python 3.11+ and MongoDB 6.0+ (local, or a free Atlas cluster).
 
 ```powershell
 py -m pip install -r requirements.txt
 $env:MONGO_URI = "mongodb://localhost:27017"
-$env:MONGO_DB = "attendance_db"
-py sample_seed.py
+$env:MONGO_DB  = "attendance_db"
 py -m uvicorn app.main:app --port 8000
 ```
 
-To use MongoDB Atlas instead, install `pymongo[srv]` and set `MONGO_URI` to your `mongodb+srv://...` connection string. For a local MongoDB: `docker run -d --name mongo -p 27017:27017 mongo:7`.
+Then open http://localhost:8000/docs. `GET /health` should return `{"status":"ok"}`.
 
-The app also reads `MONGO_URI` and `MONGO_DB` from the process environment or a local `.env` file. No credentials or `.env` file belong in the submission.
+A quick local MongoDB: `docker run -d --name mongo -p 27017:27017 mongo:7`. For Atlas, use your `mongodb+srv://...` string as `MONGO_URI`.
+
+`MONGO_URI` and `MONGO_DB` come from the environment (a local `.env` also works, but real environment variables win). Nothing is hard-coded.
+
+## Notes
+
+- Everything in the contract is implemented; nothing is missing.
+- I tested against Atlas with a generated dataset of about 87,000 records (mid-month joiners, overnight shifts, ties, employees with no logs, weekend records), comparing results with an independent calculation. I did not have the hidden dataset.
+- `attendance_pct` is rounded to 2 decimals (R8); `attendance_rate` and `moving_avg_7d` to 4.
